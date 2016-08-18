@@ -29,7 +29,7 @@ var position = [
 [new Date("2013-04-07"),521.435314743],
 ];
 var wordSet = [
-[["meeting",10,],["nayarivera",9,],["schedule",8,],["brittana",7,],["busy",6,],],
+[["",10,],["nayarivera",9,],["schedule",8,],["brittana",7,],["busy",6,],],
 [["dark",10,],["ii",9,],["soul",8,],["star",7,],],
 [["obama",10,],["target",9,],["release",8,],["republican",7,],["tax",6,],],
 [["apparently",10,],["mg",9,],["twin",8,],["robin",7,],],
@@ -42,3 +42,9 @@ var wordSet = [
 [["dog",10,],["breed",9,],["cat",8,],["sunday",7,],["pet",6,],],
 [["homework",10,],["payne",9,],["clean",8,],["real",7,],["outside",6,],],
 ];
+
+
+
+var node_a = {"id":"TF", "content":"Tensor Flow", "date":"2013-04-10", "connections":[] };
+var node_b = {"id":"google", "content":"Google", "date":"2013-04-15", "connections":["TF"] };
+var new_nodes = [node_a, node_b];

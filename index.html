@@ -17,14 +17,7 @@
 <body>
 
 
-
-
-
-
-
-
     <svg id="wordCloud" height= "700" width = "0"> </svg>
-
 
   <svg id="miniCloud"    > </svg>
 
@@ -32,8 +25,8 @@
 
 
 
-d3.select("#wordCloud").call(zoom);   
-
+  
+<!--The following functions expand the time series axis-->
 svg=d3.select("#wordCloud")
       .append("g")
       .attr("class","axis")
@@ -41,11 +34,13 @@ svg=d3.select("#wordCloud")
       .call(xAxis);
 
 
-for (i=0; i<dataLength; i=i+1)
-{
-layout(wordSet[i],i);
-}
-expandChart();
+
+
+render_node(new_nodes[0]);
+render_node(new_nodes[1]);
+
+plot();
+
 
 //Explosion
 

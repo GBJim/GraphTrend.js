@@ -1,50 +1,17 @@
+//This is the core javascript file
+
 var Height = 700;
 
 
-function drawMini(words) {
-  //remove previous text
-    d3.select("#miniCloud")
-      .selectAll("g").remove();
 
-    var miniCloud= d3.select("#miniCloud")
-            .append("g")
-            .attr("transform", "translate(150,150)");
-
-      miniCloud.append("circle")
-                .attr("stroke","black")
-                .attr("stroke-width","2px")
-                .on("click", function(){showChart(words[0].href,showEmotion);})
-                .transition()
-                .duration(1000) 
-                .attr("fill", "white")   
-                .attr("r", function(d){return 140;} )
-                .attr("stroke","black");
-        
-
-    miniCloud.selectAll("text")
-            .data(words)
-            .enter()
-            .append("text")
-            .on("click", function(d){showChart(d.href,showEmotion);})
-            .transition()
-            .style("font-size", function(d) { return d.size + "px"; })
-           
-            .style("fill", function(d, i) { return fill(i); })
-            .attr("text-anchor", "middle")
-            .attr("transform", function(d) {
-                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";})
-            .text(function(d) { return d.text; });
-  }
-
-
-function draw(words) {
-  var tmpSize;
-    xy=position[words[0].href];
+function render_circle(words) {
+    console.log(words)
+    xy=[words[0].time, 300.6740400843/1.7];
     var wordCloud= d3.select("#wordCloud")
             .append("g")
             .attr("class","wordCircle")
                     .on("mouseover",function(){
-                        tmpSize =  d3.select(this).select()
+                        
                         d3.select(this).selectAll("text").style("font-weight", "bold").style("font-style","oblique");
           d3.select(this).selectAll("circle").transition().attr("fill-opacity",1);})
                      .on("mouseout",function(){
@@ -52,10 +19,7 @@ function draw(words) {
           d3.select(this).selectAll("circle").transition().attr("fill-opacity",0.1);})
                       .on("click", function(){showChart(words[0].href,showEmotion);});
   
-            
-
-
-
+        
 
         wordCloud
         .append("circle").attr("stroke-width","2px")
@@ -69,18 +33,17 @@ function draw(words) {
         .attr("fill-opacity",0.1)
          .attr("stroke","black")
           .attr("stroke-opacity",0.1)
-
-        .attr("r", function(d){return words[0].radius+"px";} );
+             //return radius
+        .attr("r", function(d){return 100+"px";} );
         
         
 
-    var moveScale = words[0].radius /90;
+    var moveScale = 100 /90;
 
       wordCloud.
       selectAll("text")
               .data(words)
               .enter().append("text")
-              .on("click", function(d){showChart(d.href,showEmotion);})
               .transition()
               .duration(2000)
               .style("font-size", function(d) { return Math.sqrt(d.radius)*d.size/9 + "px"; })
@@ -94,24 +57,35 @@ function draw(words) {
 wordCloud.attr("transform", "translate(" + scale(xy[0])+","+(Height-xy[1])+")");
 
   }
-var total;
+
   
 
+function node_parser(){}
 
 
-  function layout(wordList,number) {
+  function render_node(node) {
    d3.layout.cloud().size([200, 200])
-      .words(wordList.map(function(d) {
-        return {text: d[0], size: d[1]*3.5 , href: number,radius:radius[number]/1.7};
+      .words([node].map(function(d) {
+        console.log(d);
+
+        return {text: d.content , size: 35, time: new Date(d.date), connections: d.connections };
       }))
      
       .rotate(function(d) { return ~~(Math.random() * 5) * 30 - 60; })
       
-      .fontSize(function(d) { return d.size; })
-      .on("end", draw)
+      .fontSize(function(d) { return ; })
+      .on("end", render_circle)
       .start();
+
+
   
   }
+
+
+
+
+
+ 
 
 
 
@@ -126,33 +100,17 @@ function getRandomColor() {
 
 
 
-
-
-  function expandChart(){
+  function plot(){
 
 d3.select("#wordCloud")
           .transition()
           .ease("bounce")
           .duration(1000)
-          .attr("width","1000").
+          .attr("width","1300").
           attr("height",Height);
 
-d3.select("#chart-line")
-          .selectAll("svg")
-          .transition()
-          .attr("width","0");
+d3.select("#wordCloud").call(zoom); 
 
-d3.select("#EmotionDim")
-          .selectAll("svg")
-          .transition()
-          .attr("width","0");
-
-d3.select("#miniCloud")
-          .transition()
-          .attr("width","0");
-
- $(".tag").hide();
-  $(".myButton").hide();
 
 }
 
@@ -215,3 +173,14 @@ var xAxis= d3.svg.axis()
 
 
 
+var svgContainer = d3.select("body").append("svg")
+                                     .attr("width", 200)
+                                     .attr("height", 200);
+
+ var line = svgContainer.append("line")
+                         .attr("x1", 5)
+                         .attr("y1", 5)
+                         .attr("x2", 50)
+                         .attr("y2", 50)
+                         .attr("stroke-width", 2)
+                         .attr("stroke", "black");
