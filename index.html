@@ -39,6 +39,13 @@ svg=d3.select("#wordCloud")
 render_node(new_nodes[0]);
 render_node(new_nodes[1]);
 
+var line = d3.select("#wordCloud").append("line")
+                         .attr("x1", 250)
+                         .attr("y1", 250)
+                         .attr("x2",300)
+                         .attr("y2", 300)
+                         .attr("stroke-width", 2)
+                         .attr("stroke", "black");
 plot();
 
 

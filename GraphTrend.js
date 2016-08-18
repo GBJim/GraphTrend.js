@@ -173,14 +173,11 @@ var xAxis= d3.svg.axis()
 
 
 
-var svgContainer = d3.select("body").append("svg")
-                                     .attr("width", 200)
-                                     .attr("height", 200);
 
- var line = svgContainer.append("line")
-                         .attr("x1", 5)
-                         .attr("y1", 5)
-                         .attr("x2", 50)
-                         .attr("y2", 50)
+ var line = d3.select("#wordCloud").append("line")
+                         .attr("x1", 250)
+                         .attr("y1", 250)
+                         .attr("x2",300)
+                         .attr("y2", 300)
                          .attr("stroke-width", 2)
                          .attr("stroke", "black");
